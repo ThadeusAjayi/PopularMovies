@@ -7,10 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import static android.R.attr.data;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * Created by jayson surface on 04/04/2017.
@@ -20,13 +24,21 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     LayoutInflater inflater;
 
+    Context context;
 
-    ArrayList<Movie> movies = new ArrayList<Movie>();
+    ArrayList<Movie> movies;
+
+    ItemClickListener mClickListener;
 
 
     public MoviesAdapter(Context context, ArrayList<Movie> movie){
         inflater = LayoutInflater.from(context);
         movies = movie;
+    }
+
+    public void setData(ArrayList<Movie> movie){
+        movies = movie;
+        notifyDataSetChanged();
     }
 
 
@@ -44,9 +56,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     public void onBindViewHolder(MovieViewHolder holder, int position) {
 
         Movie currentMovie = movies.get(position);
+        GetMoviesOnline getMovies = new GetMoviesOnline();
 
-        holder.mImageResource.setImageResource(currentMovie.getMovieResource());
-        holder.mMoviewTitle.setText(currentMovie.getMovieTitle());
+        Picasso.with(context).load(String.valueOf(getMovies.buildImageUrl(currentMovie.getMovieResource()))).fit().into(holder.mImageResource);
 
     }
 
@@ -55,20 +67,38 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         return movies.size();
     }
 
-    class MovieViewHolder extends RecyclerView.ViewHolder{
+    class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView mImageResource;
 
-        TextView mMoviewTitle;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
 
             mImageResource = (ImageView) itemView.findViewById(R.id.movie_poster);
-
-            mMoviewTitle = (TextView) itemView.findViewById(R.id.movie_text);
+            context = itemView.getContext();
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) {
+                mClickListener.onItemClick(view, getAdapterPosition());
+            }
+        }
+    }
+
+
+    public Movie getItemPosition(int position){
+        return  movies.get(position);
+    }
+
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
     }
 
 }

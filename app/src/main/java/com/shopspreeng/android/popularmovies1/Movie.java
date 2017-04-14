@@ -6,22 +6,39 @@ package com.shopspreeng.android.popularmovies1;
 
 public class Movie {
 
-    private int mMovieResource;
+    private String mMovieResource;
 
     private String mMovieTitle;
 
+    private String mOverview, mRelease, mRating;
 
-    public Movie(int movieResource, String movieTitle){
+
+    public Movie(String movieResource, String movieTitle, String overview, String release, String rating){
         mMovieResource = movieResource;
         mMovieTitle = movieTitle;
+        mOverview = overview;
+        mRelease = release;
+        mRating = rating;
     }
 
-    public int getMovieResource(){
+    public String getMovieResource(){
         return mMovieResource;
     }
 
     public String getMovieTitle(){
         return mMovieTitle;
+    }
+
+    public String getMovieOverview(){
+        return mOverview;
+    }
+
+    public String getMovieRelease(){
+        return mRelease;
+    }
+
+    public String getMovieRating(){
+        return mRating;
     }
 
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\jayson surface\Desktop\Nano-Degree\ud851-Sunshine-student\PopularMovies1\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="C:\Users\jayson surface\Desktop\Nano-Degree\ud851-Sunshine-student\PopularMovies1\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_2c9ffbfb2ab2a029f793c937ee4b94632f89578c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\jayson surface\Desktop\Nano-Degree\ud851-Sunshine-student\PopularMovies1\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="db97b9332fb166c3b77f3c714be92b9e0763bd30">
+        <dex dex="C:\Users\jayson surface\Desktop\Nano-Degree\ud851-Sunshine-student\PopularMovies1\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_cf940d1a453134b80e6b869376f0a481c9bc058d\classes.dex" />
+    </item>
+
+</items>

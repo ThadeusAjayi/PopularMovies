@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.shopspreeng.android.popularmovies1.MovieDetails"
+    tools:showIn="@layout/activity_movie_details">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:id="@+id/title"
+        android:text="@string/title"
+        android:fontFamily="monospace"
+        android:textSize="@dimen/text_margin"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:id="@+id/overview"
+        android:text="@string/overview"
+        android:fontFamily="monospace"
+        android:textSize="@dimen/text_margin"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:id="@+id/rating"
+        android:text="@string/rating"
+        android:fontFamily="monospace"
+        android:textSize="@dimen/text_margin"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:id="@+id/release"
+        android:text="@string/release"
+        android:fontFamily="monospace"
+        android:textSize="@dimen/text_margin"
+        android:textStyle="bold"/>
+
+</LinearLayout>
+</android.support.v4.widget.NestedScrollView>
