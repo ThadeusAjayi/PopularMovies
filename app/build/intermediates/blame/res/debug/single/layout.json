@@ -1,11 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
-        "source": "C:\\Users\\jayson surface\\.android\\build-cache\\6113a6cd27dc4cc0e33554771fd1f15435be3a57\\output\\res\\layout\\abc_action_mode_bar.xml"
-    },
-    {
         "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action_tombstone.xml",
         "source": "C:\\Users\\jayson surface\\.android\\build-cache\\6113a6cd27dc4cc0e33554771fd1f15435be3a57\\output\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
+        "source": "C:\\Users\\jayson surface\\.android\\build-cache\\6113a6cd27dc4cc0e33554771fd1f15435be3a57\\output\\res\\layout\\abc_action_mode_bar.xml"
     },
     {
         "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
@@ -40,12 +40,12 @@
         "source": "C:\\Users\\jayson surface\\.android\\build-cache\\6113a6cd27dc4cc0e33554771fd1f15435be3a57\\output\\res\\layout\\abc_action_menu_item_layout.xml"
     },
     {
-        "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu.xml",
-        "source": "C:\\Users\\jayson surface\\.android\\build-cache\\b72f36f9eb09c22f22ce27bea3dd81ffb5127ea5\\output\\res\\layout\\design_navigation_menu.xml"
-    },
-    {
         "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
         "source": "C:\\Users\\jayson surface\\.android\\build-cache\\6113a6cd27dc4cc0e33554771fd1f15435be3a57\\output\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu.xml",
+        "source": "C:\\Users\\jayson surface\\.android\\build-cache\\b72f36f9eb09c22f22ce27bea3dd81ffb5127ea5\\output\\res\\layout\\design_navigation_menu.xml"
     },
     {
         "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",

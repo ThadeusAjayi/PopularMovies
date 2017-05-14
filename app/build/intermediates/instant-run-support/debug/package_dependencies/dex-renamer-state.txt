@@ -1,4 +1,4 @@
-#Wed Apr 12 16:32:39 WAT 2017
+#Sun Apr 16 07:27:28 WAT 2017
 file.2=C\:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_268f3742edbd43094aa912236c3b9be9bb69681c\\classes.dex
 base.2=C\:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_268f3742edbd43094aa912236c3b9be9bb69681c
 file.1=C\:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\okhttp-3.6.0_fffdbedd6fc72b18c75ff63637d525269c49cc96\\classes.dex

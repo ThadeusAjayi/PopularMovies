@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,12 @@
         <activity
             android:name=".MovieDetails"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <provider
+            android:authorities="com.shopspreeng.android.popularmovies1"
+            android:name="com.shopspreeng.android.popularmovies1.data.MoviesProvider"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

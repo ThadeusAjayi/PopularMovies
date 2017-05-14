@@ -10,4 +10,10 @@
         android:title="@string/highest_rated_sort"
         android:orderInCategory="2"
         android:id="@+id/highest_rated"/>
+
+    <item
+        android:title="@string/favourite"
+        android:orderInCategory="2"
+        android:id="@+id/favourite"/>
+
 </menu>

@@ -1,11 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
-        "source": "C:\\Users\\jayson surface\\.android\\build-cache\\6113a6cd27dc4cc0e33554771fd1f15435be3a57\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
-    },
-    {
         "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\navigation_empty_icon.xml",
         "source": "C:\\Users\\jayson surface\\.android\\build-cache\\b72f36f9eb09c22f22ce27bea3dd81ffb5127ea5\\output\\res\\drawable\\navigation_empty_icon.xml"
+    },
+    {
+        "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\jayson surface\\.android\\build-cache\\6113a6cd27dc4cc0e33554771fd1f15435be3a57\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
     },
     {
         "merged": "C:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
