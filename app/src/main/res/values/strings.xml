@@ -21,4 +21,16 @@
     <string name="pg_one">Page One</string>
     <string name="trailer">Trailer:</string>
     <string name="review">Review:</string>
+
+
+    <string name="popular">popular</string>
+    <string name="top_rated">top_rated</string>
+    <string name="internet_error">internetError</string>
+    <string name="fav">favorite</string>
+    <string name="empty_fav">No favorite movies</string>
+    <string name="load_error">loadError</string>
+    <string name="load_list_err">There was an error loading list</string>
+    <string name="empty"></string>
+
+
 </resources>

@@ -1,7 +1,0 @@
-#Sat May 13 23:20:50 WAT 2017
-base.0=C\:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_cf940d1a453134b80e6b869376f0a481c9bc058d
-renamed.1=classes2.dex
-renamed.0=classes.dex
-file.1=C\:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_2c9ffbfb2ab2a029f793c937ee4b94632f89578c\\classes.dex
-base.1=C\:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_2c9ffbfb2ab2a029f793c937ee4b94632f89578c
-file.0=C\:\\Users\\jayson surface\\Desktop\\Nano-Degree\\ud851-Sunshine-student\\PopularMovies1\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_cf940d1a453134b80e6b869376f0a481c9bc058d\\classes.dex

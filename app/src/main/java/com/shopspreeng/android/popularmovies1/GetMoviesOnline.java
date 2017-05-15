@@ -31,8 +31,7 @@ public class GetMoviesOnline {
 
     final static String VIDEO_KEY = "v";
 
-    //TODO as recommended, keep api key variable in gradle
-    final static String API_KEY = "[API KEY GOES HERE]";
+    final static String API_KEY = BuildConfig.MY_MOVIE_DB_API_KEY;
 
     final static String PAGE = "page";
 
@@ -150,7 +149,7 @@ public class GetMoviesOnline {
                 String movieId = movieObject.getString("id");
 
 
-                Movie movieList = new Movie(moviePoster,movieTitle,movieOverview,movieReleaseDate,movieRating,movieId);
+                Movie movieList = new Movie(moviePoster,movieTitle,movieOverview,movieReleaseDate,movieRating,movieId,null,null,null);
                 movieArrayList.add(movieList);
 
             }

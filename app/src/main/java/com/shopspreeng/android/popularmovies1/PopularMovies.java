@@ -13,7 +13,9 @@ import android.net.NetworkInfo;
 import android.os.Environment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -37,12 +39,15 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import com.shopspreeng.android.popularmovies1.data.MoviesContract;
+import com.squareup.picasso.Picasso;
 
 import static android.R.attr.id;
+import static com.shopspreeng.android.popularmovies1.R.id.icon_group;
 import static com.shopspreeng.android.popularmovies1.R.id.popular;
+import static com.shopspreeng.android.popularmovies1.R.string.trailer;
 
 
-public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.ItemClickListener, LoaderManager.LoaderCallbacks<ArrayList<Movie>>{
+public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.ItemClickListener,LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
 
 
     ArrayList<Movie> extractedMovie = new ArrayList<>();
@@ -60,6 +65,8 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
 
     private static final int START_MOVIE_LOADER_INT= 22;
 
+    private static final int REFRESH_DB_LOAD = 11;
+
     ProgressBar progressBar;
 
     private static final String MOVIE_URL_STRING = "";
@@ -72,12 +79,15 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
 
     public boolean selectedFav;
 
-    String id = "";
 
-    String trailer;
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(selectedFav == true) {
+            QueryAsyncTask asyncDb = new QueryAsyncTask();
+            asyncDb.execute();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +100,7 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
         recyclerMovielist = (RecyclerView) findViewById(R.id.movie_list);
 
         recyclerMovielist.setHasFixedSize(true);
-        adapter = new MoviesAdapter(this,new ArrayList<Movie>());
+        adapter = new MoviesAdapter(this, new ArrayList<Movie>());
 
 
        detemineScreenSizeAndLayout();
@@ -100,11 +110,11 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
         if(savedInstanceState == null) {
             onCreateLoad();
         }else {
-            //TODO save some status for value to show its db files to load on start
-                extractedMovie = savedInstanceState.getParcelableArrayList(SAVE_ROTATION);
-                String savedRunningUrl = savedInstanceState.getString("runningUrl");
-                setRunningUrl(urlTest.stringToUrl(savedRunningUrl));
-                adapter.setData(extractedMovie);
+            selectedFav = savedInstanceState.getBoolean("fav");
+            extractedMovie = savedInstanceState.getParcelableArrayList(SAVE_ROTATION);
+            adapter.setData(extractedMovie);
+            String savedRunningUrl = savedInstanceState.getString("runningUrl");
+            setRunningUrl(urlTest.stringToUrl(savedRunningUrl));
 
         }
 
@@ -176,8 +186,7 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
 //TODO fix rotation load more
         if (runningUrl.equals(resultPopular)){
             paginatePopular++;
-            resultPopular = urlTest.buildUrl("popular", paginatePopular);
-            Log.v("REsultPopular", resultPopular.toString());
+            resultPopular = urlTest.buildUrl(getString(R.string.popular), paginatePopular);
 
             LoaderManager loaderManager = getSupportLoaderManager();
             Loader<Movie> movieLoader = loaderManager.getLoader(START_MOVIE_LOADER_INT);
@@ -195,8 +204,7 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
 
         if (runningUrl.equals(resultTopRated)){
             paginateTopRated++;
-            resultTopRated = urlTest.buildUrl("top_rated",paginateTopRated);
-            Log.v("ResultTopRated", resultTopRated.toString());
+            resultTopRated = urlTest.buildUrl(getString(R.string.top_rated),paginateTopRated);
 
 
             LoaderManager loaderManager = getSupportLoaderManager();
@@ -219,7 +227,7 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
         boolean internetState = checkInternetErrorViewToggle();
 
         if(internetState == true) {
-            resultPopular = urlTest.buildUrl("popular", paginatePopular);
+            resultPopular = urlTest.buildUrl(getString(R.string.popular), paginatePopular);
             Log.v("firstUrl",resultPopular.toString());
             setRunningUrl(resultPopular);
 
@@ -237,7 +245,7 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
             }
         } else {
 
-            setErrorMsg("internetError");
+            setErrorMsg(getString(R.string.internet_error));
         }
 
     }
@@ -277,10 +285,10 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
             case popular:
                 selectedFav = false;
                 paginatePopular = 1;
-                resultPopular = urlTest.buildUrl("popular",paginatePopular);
+                resultPopular = urlTest.buildUrl(getString(R.string.popular),paginatePopular);
 
                 if(internetState == false) {
-                    setErrorMsg("popular");
+                    setErrorMsg(getString(R.string.popular));
                     return super.onOptionsItemSelected(item);
                 }
                 LoaderManager loaderManager = getSupportLoaderManager();
@@ -303,10 +311,10 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
             case R.id.highest_rated:
                 selectedFav =false;
                 paginateTopRated = 1;
-                resultTopRated = urlTest.buildUrl("top_rated",paginateTopRated);
+                resultTopRated = urlTest.buildUrl(getString(R.string.top_rated),paginateTopRated);
 
                 if(internetState == false) {
-                    setErrorMsg("topRated");
+                    setErrorMsg(getString(R.string.top_rated));
                     return super.onOptionsItemSelected(item);
                 }
 
@@ -333,8 +341,8 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
 
                 adapter.setData(new ArrayList<Movie>());
 
-                QueryAsyncTask queryAsyncTask = new QueryAsyncTask();
-                queryAsyncTask.execute();
+                QueryAsyncTask asyncDb = new QueryAsyncTask();
+                asyncDb.execute();
 
                 emptyUrl = urlTest.stringToUrl("http://www.shopspreeng.com");
                 setRunningUrl(emptyUrl);
@@ -346,16 +354,16 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
     }
 
     public void setErrorMsg(String stateToCheck){
-        if(stateToCheck == "favorite")
-            internetError.setText("No favorites movies");
+        if(stateToCheck == getString(R.string.fav))
+            internetError.setText(getString(R.string.empty_fav));
             internetError.setVisibility(View.VISIBLE);
 
-        if(stateToCheck == "popular" || stateToCheck == "topRated" || stateToCheck == "internetError")
-            internetError.setText("No Internet connection");
+        if(stateToCheck == getString(R.string.popular) || stateToCheck == getString(R.string.top_rated) || stateToCheck == getString(R.string.internet_error))
+            internetError.setText(getString(R.string.no_internet));
             internetError.setVisibility(View.VISIBLE);
 
-        if(stateToCheck == "loadError")
-            internetError.setText("There was an error loading list");
+        if(stateToCheck == getString(R.string.load_error))
+            internetError.setText(getString(R.string.load_list_err));
             internetError.setVisibility(View.VISIBLE);
     }
 
@@ -373,7 +381,6 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
             Movie toSend = adapter.getItemPosition(position);
             intent.putParcelableArrayListExtra("toSend",toSend);
             intent.putExtra("movieDbId",id);
-            intent.putExtra("trailer",trailer);
         }
 
 
@@ -440,7 +447,7 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
         extractedMovie = data;
 
         if(data == null){
-            setErrorMsg("loadError");
+            setErrorMsg(getString(R.string.load_error));
         }else if(data.size() > 0){
                 adapter.addData(extractedMovie);
                 }
@@ -457,25 +464,28 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
     }
 
 
+
     private class QueryAsyncTask extends android.os.AsyncTask<Void,Void, Cursor>{
         @Override
         protected void onPostExecute(Cursor cursor) {
             super.onPostExecute(cursor);
 
             if(!cursor.moveToNext()) {
-                setErrorMsg("favorite");
+                setErrorMsg(getString(R.string.fav));
                 return ;
             }
 
 
-            ArrayList<Movie> dbMovies = new ArrayList<>();
+            extractedMovie = new ArrayList<>();
 
-            String image = "", title = "", rating = "", overview = "", release = "", review = "";
+            String image = "", title = "", rating = "", overview = "", release = "",
+                    review = "", trailer = "", id = "", author = "";
 
 
             for(int i=0; i < cursor.getCount(); i++) {
-                if (cursor.moveToNext()){
+                if (cursor.moveToPosition(i)){
 
+                    //value from database to send db postion to next activity for delete purposes
                     id = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry._ID));
 
                     image = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.COLUMN_IMAGE));
@@ -492,12 +502,14 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
 
                     trailer  = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.COLUMN_TRAILER));
 
-                    Log.v("CursorVals", review + " " + title);
+                    author = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.COLUMN_REVIEW_AUTHOR));
+
                 }
-                dbMovies.add(new Movie(image,title,overview,release,rating,review));
+
+                extractedMovie.add(new Movie(image,title,overview,release,rating,id,review,trailer, author));
             }
             cursor.close();
-            adapter.setData(dbMovies);
+            adapter.setData(extractedMovie);
 
             adapter.setMoreDataAvailable(false);
 
@@ -521,7 +533,92 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
 
         }
     }
+/*
+    public class cursorLoader implements LoaderManager.LoaderCallbacks<Cursor>{
 
+        @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            return new AsyncTaskLoader<Cursor>(getApplicationContext()) {
+                @Override
+                protected void onStartLoading() {
+                    super.onStartLoading();
+                    forceLoad();
+                }
+
+                @Override
+                public Cursor loadInBackground() {
+                    ContentResolver resolver = getContentResolver();
+                    try {
+                        return resolver.query(MoviesContract.MoviesEntry.CONTENT_URI,
+                                null,
+                                null,
+                                null,
+                                MoviesContract.MoviesEntry._ID + "DESC");
+                    } catch(Exception e){
+                        Log.e("PopularMovies1", "Failed to ascynchronously load data.");
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+
+
+            };
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+            if(!cursor.moveToNext()) {
+                setErrorMsg(getString(R.string.fav));
+                return ;
+            }
+
+
+            extractedMovie = new ArrayList<>();
+
+            String image = "", title = "", rating = "", overview = "", release = "",
+                    review = "", trailer = "", id = "", author = "";
+
+
+            for(int i=0; i < cursor.getCount(); i++) {
+                if (cursor.moveToPosition(i)){
+
+                    //value from database to send db postion to next activity for delete purposes
+                    id = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry._ID));
+
+                    image = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.COLUMN_IMAGE));
+
+                    title = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.COLUMN_MOVIE_TITLE));
+
+                    rating = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.COLUMN_MOVIE_RATING));
+
+                    overview = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.COLUMN_OVERVIEW));
+
+                    release = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.COLUMN_RELEASE_DATE));
+
+                    review = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.COLUMN_REVIEW));
+
+                    trailer  = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.COLUMN_TRAILER));
+
+                    author = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.COLUMN_REVIEW_AUTHOR));
+
+                }
+
+                extractedMovie.add(new Movie(image,title,overview,release,rating,id,review,trailer, author));
+            }
+            cursor.close();
+            adapter.setData(extractedMovie);
+
+            adapter.setMoreDataAvailable(false);
+
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+
+        }
+    }
+*/
     private String saveToInternalStorage(View imageView, String movieId){
 
         imageView.setDrawingCacheEnabled(true);
@@ -553,18 +650,5 @@ public class PopularMovies extends AppCompatActivity implements  MoviesAdapter.I
         return mypath.getAbsolutePath();
     }
 
-    public void loadImageFromStorage(String path, ImageView posterView){
-
-        try {
-            File f=new File(path);
-            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-            posterView.setImageBitmap(b);
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-
-    }
 
 }

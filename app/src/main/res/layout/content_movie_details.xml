@@ -20,22 +20,16 @@
 
         <TextView
             android:id="@+id/title_label"
-            android:layout_width="wrap_content"
+            style="@style/DetailLabels"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/title"
-            android:fontFamily="monospace"
-            android:textAlignment="textStart"
-            android:textSize="@dimen/text_margin"
-            android:textStyle="bold"/>
+            android:fontFamily="monospace"/>
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:layout_weight="8"
-            tools:layout_gravity="center" />
+            style="@style/DetailResults"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -45,21 +39,15 @@
 
         <TextView
             android:id="@+id/overview_label"
-            android:layout_width="wrap_content"
+            style="@style/DetailLabels"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/overview"
-            android:fontFamily="monospace"
-            android:textAlignment="textStart"
-            android:textSize="@dimen/text_margin"
-            android:textStyle="bold" />
+            android:fontFamily="monospace" />
 
         <TextView
             android:id="@+id/overview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:layout_weight="8" />
+            style="@style/DetailResults"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -78,21 +66,15 @@
 
         <TextView
             android:id="@+id/rating_label"
-            android:layout_width="wrap_content"
+            style="@style/DetailLabels"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/rating"
-            android:fontFamily="monospace"
-            android:textAlignment="textStart"
-            android:textSize="@dimen/text_margin"
-            android:textStyle="bold" />
+            android:fontFamily="monospace" />
 
         <TextView
             android:id="@+id/rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:layout_weight="8" />
+            style="@style/DetailResults"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
@@ -102,21 +84,15 @@
 
         <TextView
             android:id="@+id/release_label"
-            android:layout_width="wrap_content"
+            style="@style/DetailLabels"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/release"
-            android:fontFamily="monospace"
-            android:textAlignment="textStart"
-            android:textSize="@dimen/text_margin"
-            android:textStyle="bold" />
+            android:fontFamily="monospace" />
 
         <TextView
             android:id="@+id/release"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:layout_weight="8" />
+            style="@style/DetailResults"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
@@ -126,48 +102,44 @@
 
         <TextView
             android:id="@+id/movie_id_label"
-            android:layout_width="wrap_content"
+            style="@style/DetailLabels"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/trailer"
-            android:fontFamily="monospace"
-            android:textAlignment="textStart"
-            android:textSize="@dimen/text_margin"
-            android:textStyle="bold" />
+            android:fontFamily="monospace" />
 
         <TextView
             android:id="@+id/movie_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:layout_weight="8"
-            android:clickable="true" />
+            style="@style/DetailResults"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/review_label"
-            android:layout_width="wrap_content"
+            style="@style/ReviewLabel"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/review"
-            android:fontFamily="monospace"
-            android:textAlignment="textStart"
-            android:textSize="@dimen/text_margin"
-            android:textStyle="bold" />
+            android:fontFamily="monospace" />
 
         <TextView
             android:id="@+id/review"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:layout_weight="8"
-            android:clickable="true" />
+            style="@style/ReviewResult"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/author_text"
+            style="@style/ReviewResult"
+            android:gravity="right"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
+
+
+
 
 </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

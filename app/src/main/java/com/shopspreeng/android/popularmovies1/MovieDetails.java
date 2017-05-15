@@ -1,12 +1,16 @@
 package com.shopspreeng.android.popularmovies1;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.ColorRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -21,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shopspreeng.android.popularmovies1.data.MoviesContract;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,9 +35,14 @@ import java.io.IOException;
 
 import org.json.JSONException;
 
+import static android.R.drawable.btn_star_big_off;
+import static android.R.drawable.btn_star_big_on;
+import static android.R.drawable.star_big_off;
+import static android.R.drawable.star_big_on;
+
 public class MovieDetails extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String[]>{
 
-    TextView titleText, overviewText, ratingText, releaseText, movieIdText, reviewText;
+    TextView titleText, overviewText, ratingText, releaseText, movieIdText, reviewText, authorText;
 
     ImageView poster;
 
@@ -45,12 +56,20 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
 
     String movieId;
 
-    private String title, overview, releaseDate, rating, movieDbId, imagePath, trailerUrl, review;
+    private String title, overview, releaseDate, rating, movieDbId, imagePath, trailerUrl, review, author;
 
     Boolean selectedfav;
 
-    GetMoviesOnline gmol = new GetMoviesOnline();
+    private int colorBtnStatus;
 
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.getInt("BtnStat", colorBtnStatus);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +85,22 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
         releaseText = (TextView) findViewById(R.id.release);
         movieIdText = (TextView) findViewById(R.id.movie_id);
         reviewText = (TextView) findViewById(R.id.review);
+        authorText = (TextView) findViewById(R.id.author_text);
 
         poster = (ImageView) findViewById(R.id.poster);
         favouriteBtn = (ImageButton) findViewById(R.id.fav_btn);
+
+        if(savedInstanceState != null){
+            if(savedInstanceState.getInt("BtnStat") == 1) {
+                favouriteBtn.setImageResource(btn_star_big_on);
+                favouriteBtn.setBackgroundResource(R.color.clear);
+            } else {
+                favouriteBtn.setImageResource(btn_star_big_off);
+                favouriteBtn.setBackgroundResource(R.color.clear);
+            }
+        }
+
+
 
 
         favouriteBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +108,7 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
             public void onClick(View view) {
 
                     if (selectedfav == false) {
-                        //TODO if works, toggle image button color here
+
                     ContentValues contentValues = new ContentValues();
 
                     contentValues.put(MoviesContract.MoviesEntry.COLUMN_IMAGE, imagePath);
@@ -84,6 +116,7 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
                     contentValues.put(MoviesContract.MoviesEntry.COLUMN_OVERVIEW, overview);
                     contentValues.put(MoviesContract.MoviesEntry.COLUMN_RELEASE_DATE, releaseDate);
                     contentValues.put(MoviesContract.MoviesEntry.COLUMN_REVIEW, review);
+                    contentValues.put(MoviesContract.MoviesEntry.COLUMN_REVIEW_AUTHOR, author);
                     contentValues.put(MoviesContract.MoviesEntry.COLUMN_MOVIE_RATING, rating);
                     contentValues.put(MoviesContract.MoviesEntry.COLUMN_TRAILER, trailerUrl);
 
@@ -91,7 +124,8 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
 
                     if (uri != null) {
                         Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_SHORT).show();
-                        getContentResolver().notifyChange(uri,null);
+                        favouriteBtn.setImageResource(btn_star_big_on);
+                        favouriteBtn.setBackgroundResource(R.color.clear);
                     }
                 }else{
                     Uri uri = MoviesContract.MoviesEntry.CONTENT_URI;
@@ -99,7 +133,9 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
                     Log.v("MovieViewId", String.valueOf(uri));
                     if(getContentResolver().delete(uri,null,null)>0)
                         Toast.makeText(getBaseContext(), uri.toString() + "Deleted", Toast.LENGTH_SHORT).show();
-                        getContentResolver().notifyChange(uri,null);
+                        favouriteBtn.setImageResource(btn_star_big_off);
+                        favouriteBtn.setBackgroundResource(R.color.clear);
+                        finish();
 
                 }
             }
@@ -115,12 +151,18 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
         });
 
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
         Intent intent = getIntent();
         if(intent.hasExtra("toSend") && intent.hasExtra("imagePath")) {
+
+            favouriteBtn.setImageResource(btn_star_big_off);
+            favouriteBtn.setBackgroundResource(R.color.clear);
+
+            colorBtnStatus = 1;
 
             selectedfav = false;
 
@@ -149,10 +191,15 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
             mToolbar.setExpandedTitleTypeface(Typeface.MONOSPACE);
 
             movieUrl = movieIdText.getText().toString();
-            Log.v("MovieURL",movieUrl);
+
         }
 
-        if(intent.hasExtra("toSend") && intent.hasExtra("movieDbId")) {
+        if(intent.hasExtra("toSend") && !intent.hasExtra("imagePath")) {
+
+            favouriteBtn.setImageResource(btn_star_big_on);
+            favouriteBtn.setBackgroundResource(R.color.clear);
+
+            colorBtnStatus = 0;
 
             selectedfav = true;
 
@@ -160,9 +207,7 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
 
             Movie extra = intent.getParcelableExtra("toSend");
 
-            movieDbId = intent.getStringExtra("movieDbId");
-
-            trailerUrl = intent.getStringExtra("trailer");
+            movieDbId = adapter.getMovie(extra).getMovieId();
 
             imagePath = adapter.getMovie(extra).getMovieResource();
 
@@ -174,8 +219,11 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
 
             rating = adapter.getMovie(extra).getMovieRating();
 
-            //Set review text
-            review = adapter.getMovie(extra).getMovieId();
+            review = adapter.getMovie(extra).getReview();
+
+            trailerUrl = adapter.getMovie(extra).getTrailer();
+
+            author = adapter.getMovie(extra).getAuthor();
 
             loadImageFromStorage(imagePath, poster);
 
@@ -189,10 +237,7 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
             Log.v("MovieURL",movieUrl);
         }
 
-
-
-
-        }
+    }
 
     public void setTvContents(){
         titleText.setText(title);
@@ -201,6 +246,7 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
         releaseText.setText(releaseDate);
         movieIdText.setText(trailerUrl);
         reviewText.setText(review);
+        authorText.setText(author);
     }
 
     public void loadImageFromStorage(String path, ImageView posterView){
@@ -259,9 +305,11 @@ public class MovieDetails extends AppCompatActivity implements LoaderManager.Loa
             e.printStackTrace();
         }
         if(reviewHere[1] == null || reviewHere[0] == null){
-            review = "Author:" + "\n\n" + "Review:";
+            review = "Author:";
+            author = "Review:";
         } else {
-            review = reviewHere[1] + "\n\n" + reviewHere[0];
+            review = reviewHere[1];
+            author = reviewHere[0];
         }
 
         setTvContents();

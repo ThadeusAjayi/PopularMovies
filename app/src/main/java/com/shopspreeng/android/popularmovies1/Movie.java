@@ -18,18 +18,21 @@ public class Movie extends ArrayList<Parcelable> implements Parcelable {
 
     private String mOverview, mRelease, mRating;
 
-    private String mMovieId;
+    private String mMovieId, mReview, mTrailer, mAuthor;
 
 
 
     public Movie(String movieResource, String movieTitle, String overview, String release, String rating, String
-                 movieId){
+                 movieId, String review, String trailer, String author){
         mMovieResource = movieResource;
         mMovieTitle = movieTitle;
         mOverview = overview;
         mRelease = release;
         mRating = rating;
         mMovieId = movieId;
+        mReview = review;
+        mTrailer = trailer;
+        mAuthor = author;
     }
 
 
@@ -40,6 +43,9 @@ public class Movie extends ArrayList<Parcelable> implements Parcelable {
         mRelease = in.readString();
         mRating = in.readString();
         mMovieId = in.readString();
+        mReview = in.readString();
+        mTrailer = in.readString();
+        mAuthor = in.readString();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -78,6 +84,18 @@ public class Movie extends ArrayList<Parcelable> implements Parcelable {
         return mMovieId;
     }
 
+    public String getReview(){
+        return mReview;
+    }
+
+    public String getTrailer(){
+        return mTrailer;
+    }
+
+    public String getAuthor(){
+        return mAuthor;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -91,5 +109,8 @@ public class Movie extends ArrayList<Parcelable> implements Parcelable {
         parcel.writeString(mRelease);
         parcel.writeString(mRating);
         parcel.writeString(mMovieId);
+        parcel.writeString(mReview);
+        parcel.writeString(mTrailer);
+        parcel.writeString(mAuthor);
     }
 }

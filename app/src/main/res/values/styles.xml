@@ -17,4 +17,38 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="DetailLabels">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/label_size</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="ReviewLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/label_size</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="ReviewResult">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:layout_margin">@dimen/text_margin</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+
+    <style name="DetailResults">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">8</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:layout_margin">@dimen/text_margin</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+
 </resources>
